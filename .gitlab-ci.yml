@@ -1,0 +1,36 @@
+stages:
+  - test
+  - build
+
+unit-test:
+  stage: test
+  image: python:3.12-slim
+  before_script:
+    - python -m pip install -e "./backend[dev]"
+  script:
+    - cd backend
+    - python -m pytest -q
+
+frontend-test:
+  stage: test
+  image: node:20-alpine
+  before_script:
+    - cd frontend
+    - if [ -f package-lock.json ]; then npm ci; else npm install; fi
+  script:
+    - npm run lint
+    - npm run typecheck
+    - npm test
+    - npm run build
+
+credential-policy:
+  stage: test
+  image: python:3.12-slim
+  script:
+    - python scripts/security_scan.py
+
+docker-config:
+  stage: build
+  image: docker:27-cli
+  script:
+    - docker compose config --quiet

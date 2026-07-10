@@ -1,0 +1,32 @@
+schema_version: 1
+id: c-course-v1
+name: C Course Assignment
+language: c
+required_files:
+  - main.c
+forbidden_paths:
+  - .env
+  - .git/**
+  - '*.exe'
+  - '*.o'
+ignore_paths: []
+limits:
+  max_file_bytes: 1048576
+  max_project_bytes: 10485760
+  max_depth: 4
+commands:
+  build: [gcc, -std=c11, -Wall, -Wextra, -o, submission, main.c]
+  test: null
+  timeout_seconds: 15
+  network_disabled: true
+sensitive_scan: true
+scoring:
+  - id: structure
+    label: Required structure
+    weight: 30
+  - id: build
+    label: Compilation
+    weight: 50
+  - id: security
+    label: Submission hygiene
+    weight: 20
