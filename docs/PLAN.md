@@ -7,13 +7,13 @@
 - [x] T00 读取通用、B、A 三份要求和仓库说明；验证：形成要求差异与限制记录。
 - [x] T01 编写 `docs/SPEC.md`；验证：覆盖用户故事、模块 I/O/边界、安全、数据/API、非 Agent 边界、验收。
 - [x] T02 编写本计划；验证：每项给出文件、依赖、失败测试和验收命令。
-- [ ] T03 独立上下文规约冷读；输入仅 SPEC/PLAN；验证：记录歧义、修订 diff。依赖 T01–T02。
+- [x] T03 独立上下文规约冷读；输入仅 SPEC/PLAN；验证：记录歧义、修订 diff。依赖 T01–T02。冷读指出规则 schema/权威源、ZIP 跨平台语义和清理职责缺口，均已修订。
 
 ## P1 后端基础（依赖：P0）
 
 - [ ] T10 建立 `backend/pyproject.toml`、配置、DB、模型和 FastAPI 骨架。红测：health/DB 临时实例；绿测：`pytest`。文件：`backend/app/{main,config,database,models}.py`。
-- [ ] T11 严格规则模型与 YAML 服务。红测：三份合法规则、未知字段/危险命令/版本错误；绿测：schema/template/list/import。文件：`schemas/rules.py`, `services/rules.py`, `examples/rules/*`。
-- [ ] T12 安全 ZIP 导入。红测：Zip Slip、绝对路径、链接、损坏包、数量/大小；绿测：独立目录与安全清理。文件：`services/extractor.py`, `tests/test_extractor.py`。
+- [ ] T11 严格规则模型与 YAML 服务（依赖 T10 配置）。红测：三份合法规则、未知字段/危险命令/版本错误；绿测：schema/template/list/import。文件：`schemas/rules.py`, `services/rules.py`, `tests/test_rules.py`, `examples/rules/*`。验收：`pytest tests/test_rules.py -q`。三份规则资产归 T11，T50 只生成项目 ZIP。
+- [ ] T12 安全 ZIP 导入（依赖 T10 配置，不依赖 DB/API）。红测：Zip Slip、绝对/UNC/盘符/混合路径、链接/特殊项、重复冲突、加密/损坏包、数量/大小边界；绿测：独立目录与失败清理。文件：`services/extractor.py`, `tests/test_extractor.py`。验收：`pytest tests/test_extractor.py -q`。
 
 ## P2 检查与运行（依赖：T10–T12）
 
@@ -37,7 +37,7 @@
 
 ## P5 分发、样例和质量（依赖：P3–P4）
 
-- [ ] T50 六类示例项目、三规则及 ZIP 生成脚本；验证：fixture 清单与 `python scripts/generate_examples.py` 幂等。
+- [ ] T50 六类示例项目及 ZIP 生成脚本（规则资产在 T11）；验证：fixture 清单与 `python scripts/generate_examples.py` 幂等。
 - [ ] T51 跨平台测试/演示脚本、Makefile；验证：PowerShell 与 Python 入口均传播失败码。
 - [ ] T52 backend/frontend Dockerfile、nginx、Compose；验证：配置静态检查；有 Docker 环境时 build/up/health/down。
 - [ ] T53 GitHub Actions 和课程要求 `.gitlab-ci.yml` `unit-test` job；验证：YAML/命令与本地一致。
@@ -63,4 +63,3 @@
 - 前端工具：优先使用 Codex 随附 Node/pnpm；锁定 lockfile。
 - Docker 缺失：不能伪造构建通过；提供 CI build 并在冷启动报告标阻塞。
 - 课程过程工具缺失：保留清晰的等价证据和偏差说明。
-
