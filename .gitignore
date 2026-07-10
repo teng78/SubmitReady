@@ -13,6 +13,10 @@ htmlcov/
 .coverage
 node_modules/
 frontend/dist/
+*.tsbuildinfo
+.vite/
+work/
+outputs/
 *.log
 *.db
 *.sqlite*

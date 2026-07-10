@@ -23,6 +23,33 @@ def run(label: str, command: list[str], cwd: Path = ROOT) -> None:
         raise SystemExit(completed.returncode)
 
 
+def prepare_frontend_path() -> None:
+    """Expose Node, including the runtime bundled with Codex desktop."""
+    if shutil.which("node"):
+        return
+    bundled = (
+        Path.home()
+        / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin"
+        / ("node.exe" if os.name == "nt" else "node")
+    )
+    if bundled.exists():
+        os.environ["PATH"] = (
+            str(bundled.parent) + os.pathsep + os.environ.get("PATH", "")
+        )
+    if not shutil.which("node"):
+        raise SystemExit("Node.js 20 or newer was not found; see README local setup")
+
+
+def local_frontend_command(frontend: Path, tool: str, *args: str) -> list[str]:
+    suffix = ".cmd" if os.name == "nt" else ""
+    executable = frontend / "node_modules" / ".bin" / f"{tool}{suffix}"
+    if not executable.exists():
+        raise SystemExit(
+            f"frontend dependencies are missing ({executable}); run npm install first"
+        )
+    return [str(executable), *args]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--backend-only", action="store_true")
@@ -48,20 +75,37 @@ def main() -> int:
 
     if not args.backend_only:
         frontend = ROOT / "frontend"
+        prepare_frontend_path()
         npm = shutil.which("npm.cmd" if os.name == "nt" else "npm")
-        if npm is None:
-            raise SystemExit("npm was not found; install Node.js 20 or newer")
         lockfile = frontend / "package-lock.json"
-        if not args.skip_install:
+        if not args.skip_install and npm is not None:
             run(
                 "frontend dependencies",
                 [npm, "ci" if lockfile.exists() else "install"],
                 frontend,
             )
-        run("frontend lint", [npm, "run", "lint"], frontend)
-        run("frontend types", [npm, "run", "typecheck"], frontend)
-        run("frontend tests", [npm, "test"], frontend)
-        run("frontend build", [npm, "run", "build"], frontend)
+        elif not (frontend / "node_modules").exists():
+            raise SystemExit("npm was not found and frontend dependencies are absent")
+        run(
+            "frontend lint",
+            local_frontend_command(frontend, "eslint", ".", "--max-warnings", "0"),
+            frontend,
+        )
+        run(
+            "frontend types",
+            local_frontend_command(frontend, "tsc", "-b", "--pretty", "false"),
+            frontend,
+        )
+        run(
+            "frontend tests",
+            local_frontend_command(frontend, "vitest", "run"),
+            frontend,
+        )
+        run(
+            "frontend build",
+            local_frontend_command(frontend, "vite", "build"),
+            frontend,
+        )
     print("\nAll requested quality gates passed.")
     return 0
 
