@@ -40,8 +40,8 @@ flowchart LR
 
 ## 最快启动：Docker Compose
 
-在线演示：<https://submitready.onrender.com>  
-在线 API 文档：<https://submitready.onrender.com/docs>
+- 在线演示：<https://submitready.onrender.com>
+- 在线 API 文档：<https://submitready.onrender.com/docs>
 
 ```bash
 docker compose up --build
