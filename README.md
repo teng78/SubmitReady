@@ -40,6 +40,9 @@ flowchart LR
 
 ## 最快启动：Docker Compose
 
+在线演示：<https://submitready.onrender.com>  
+在线 API 文档：<https://submitready.onrender.com/docs>
+
 ```bash
 docker compose up --build
 ```
@@ -135,7 +138,7 @@ python scripts/demo.py
 - `ALLOW_UNTRUSTED_EXECUTION=false` 是默认值；此时构建/测试显示“跳过”。
 - 受控 subprocess 有参数、环境、输出和超时边界，但不是完整沙箱，也不能保证 Windows 上阻断网络或所有子进程。
 - Compose 的容器限制降低风险，应用内按运行创建 Docker 沙箱的 `DockerRunner` 仍只是接口。
-- 不建议把本版本直接暴露到公网，也不要用它执行陌生来源代码。
+- 公网演示保持 `SUBMITREADY_ALLOW_UNTRUSTED_EXECUTION=false`；不要用它执行陌生来源代码。
 
 详见 [安全文档](docs/SECURITY.md)。
 
@@ -184,8 +187,9 @@ docs/           规格、计划、过程、安全、演示与验证证据
 
 - 检查请求同步执行，未实现后台队列和真实逐阶段进度流。
 - subprocess 不是完整沙箱；应用内 DockerRunner 未实现。
-- 本机缺 Docker，镜像构建与 Compose 运行等待 CI/有 Docker 环境验证。
-- 尚无公网部署 URL，也未发布 registry 镜像；远程发布需要仓库/云权限。
+- 本机缺 Docker；Docker 构建已由 GitHub Actions 和 Render 部署验证，但 Compose `up/down` 未在本机执行。
+- 公网演示已部署到 Render；免费实例闲置后会休眠，SQLite 历史在重启或重新部署后可能丢失。
+- 尚未发布公共 registry 镜像。
 - SQLite 适合单实例，不支持多副本共享状态。
 - 当前过程环境未提供课程指定 Superpowers/Open Design 技能，也未完成“不同产品智能体”冷读；偏差已如实记录。
 - `REFLECTION` 必须由学生本人审阅、改写并确认，不能把 AI 草稿冒充个人反思。
@@ -193,4 +197,3 @@ docs/           规格、计划、过程、安全、演示与验证证据
 ## 许可证
 
 MIT，见 [LICENSE](LICENSE)。
-
