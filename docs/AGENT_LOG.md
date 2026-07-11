@@ -45,7 +45,7 @@
 - 冷启动 1：全新导出、全新 venv 后端安装成功；pnpm 安装 273 包后以 `ERR_PNPM_IGNORED_BUILDS` 拒绝 esbuild，失败退出。
 - 根因/修复：pnpm 11 需要精确 `allowBuilds`；仅允许 `esbuild: true`，提交 `6087839`。
 - 冷启动 2：从 `6087839` 重新导出到 `work/cold-start-20260711-010049`；新 venv + frozen lock 安装成功；21 pytest、6 Vitest、全部 lint/type/build、凭据策略和 8 ZIP 演示通过。
-- 未解决：Docker/远程 CI/registry/公网 URL 没有本机或远程证据；课程指定 Superpowers/Open Design 技能不在当前会话；反思必须由学生本人重写。
+- 当时未解决：Docker/远程 CI/registry/公网 URL 没有本机或远程证据；课程指定 Superpowers/Open Design 技能不在当前会话；反思仍待学生本人重写。后续远程部署、CI 与学生反思均已完成，registry 与过程技能偏差仍保留。
 
 ## 2026-07-11 · T64 · 最终门禁
 
@@ -53,3 +53,10 @@
 - 结果：Ruff format/check 通过；mypy 22 source files 通过；pytest 21 passed（3.14s，1 个上游弃用警告）；ESLint/TypeScript 通过；Vitest 6 passed；Vite 51 modules build 通过。
 - 并行复核：所有 scripts Python 文件逐个 `py_compile`；8 ZIP 重建；Compose/GitHub Actions/GitLab CI YAML 解析；凭据策略、`.env` 跟踪检查、`git diff --check` 均通过。
 - Git 工作树在检查结束时干净。Docker 与远程状态仍未被验证。
+
+## 2026-07-11 · 课程提交整合
+
+- GitHub Actions 远程质量工作流成功；Render Docker 构建与公网 WebUI 部署成功。
+- 公网首页和 `/api/health` 外部验证为 HTTP 200，执行不可信代码保持关闭。
+- 学生滕云龙完成并确认 2351 字最终反思，替换仓库中的 AI 协助草稿。
+- 课程身份信息按学生明确要求纳入公开反思报告；最终源码归档与提交清单重新生成。

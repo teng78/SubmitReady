@@ -11,4 +11,4 @@
 | 六个页面 | SPEC 5/8 | T40–T43 | 6 Vitest + Edge QA | 完成 |
 | 测试/CI | SPEC 11 | T50–T54 | 27 tests + CI configs | 本地完成，远程未运行 |
 | 分发/冷启动 | SPEC 10–12 | T52/T62 | clean export passed | Docker 未验证 |
-| 过程与反思文档 | SPEC 11 | T60–T64 | docs + student-warning draft | 文档完成，学生核验待办 |
+| 过程与反思文档 | SPEC 11 | T60–T64 | docs + student-final reflection | 完成；Superpowers 偏差已记录 |

@@ -19,11 +19,11 @@
 | Docker 构建 | 通过（远程） | GitHub Actions 与 Render 构建成功；本机无 Docker CLI |
 | README 命令/冷启动 | 部分通过 | 全新副本安装与 test/demo 通过；Docker 命令未本机执行 |
 | 凭据安全 | 通过（当前范围） | 无外部 Key；`.env` 未跟踪；扫描通过 |
-| 过程文档/反思 | 部分通过 | 文件齐全；反思须学生本人改写；Superpowers 技能不可用 |
+| 过程文档/反思 | 通过（有过程偏差） | 学生最终反思 2351 字；Superpowers 技能不可用的偏差已如实记录 |
 | 示例与演示 | 通过 | 7 项目、8 ZIP、online demo 导出 Markdown |
 | Git 小步提交 | 通过 | 10+ 语义提交已推送到公开 GitHub；无远程 PR |
 | worktree/不同类型 agent | **未完成** | 共享工作区/同类 Codex，已记录偏差 |
 | 公网 WebUI | 通过 | https://submitready.onrender.com；首页和 `/api/health` 外部验证 200 |
 | 公共 registry 镜像 | **未完成** | Render 从源码构建，尚未发布独立公共镜像 |
 
-结论：核心应用、干净副本、远程 CI、Docker 构建和公网 WebUI 均已验证。仍需提交者补齐学生本人反思，以及课程指定的 Superpowers/worktree/不同类型智能体证据；公共 registry 镜像和真实 PR 历史仍未提供。
+结论：核心应用、学生反思、干净副本、远程 CI、Docker 构建和公网 WebUI 均已完成。课程指定的 Superpowers/worktree/不同类型智能体存在已记录的过程偏差；公共 registry 镜像和真实 PR 历史仍未提供。

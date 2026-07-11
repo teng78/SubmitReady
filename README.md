@@ -180,7 +180,7 @@ docs/           规格、计划、过程、安全、演示与验证证据
 - [冷启动报告](docs/COLD_START_REPORT.md)
 - [开发日志](docs/AGENT_LOG.md)
 - [本地 PR 替代记录](docs/PR_HISTORY.md)
-- [反思草稿与学生核验说明](docs/REFLECTION.md)
+- [学生最终反思报告](docs/REFLECTION.md)
 - [贡献指南](CONTRIBUTING.md)
 
 ## 已知限制
@@ -192,7 +192,7 @@ docs/           规格、计划、过程、安全、演示与验证证据
 - 尚未发布公共 registry 镜像。
 - SQLite 适合单实例，不支持多副本共享状态。
 - 当前过程环境未提供课程指定 Superpowers/Open Design 技能，也未完成“不同产品智能体”冷读；偏差已如实记录。
-- `REFLECTION` 必须由学生本人审阅、改写并确认，不能把 AI 草稿冒充个人反思。
+- `REFLECTION` 已由学生本人审阅和修改；公开版本包含课程身份信息。
 
 ## 许可证
 
