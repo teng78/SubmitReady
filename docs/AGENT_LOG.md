@@ -46,3 +46,10 @@
 - 根因/修复：pnpm 11 需要精确 `allowBuilds`；仅允许 `esbuild: true`，提交 `6087839`。
 - 冷启动 2：从 `6087839` 重新导出到 `work/cold-start-20260711-010049`；新 venv + frozen lock 安装成功；21 pytest、6 Vitest、全部 lint/type/build、凭据策略和 8 ZIP 演示通过。
 - 未解决：Docker/远程 CI/registry/公网 URL 没有本机或远程证据；课程指定 Superpowers/Open Design 技能不在当前会话；反思必须由学生本人重写。
+
+## 2026-07-11 · T64 · 最终门禁
+
+- 停止本地 FastAPI/Vite 测试进程后，从最终工作树运行 `python scripts/test_all.py --skip-install`，退出码 0。
+- 结果：Ruff format/check 通过；mypy 22 source files 通过；pytest 21 passed（3.14s，1 个上游弃用警告）；ESLint/TypeScript 通过；Vitest 6 passed；Vite 51 modules build 通过。
+- 并行复核：所有 scripts Python 文件逐个 `py_compile`；8 ZIP 重建；Compose/GitHub Actions/GitLab CI YAML 解析；凭据策略、`.env` 跟踪检查、`git diff --check` 均通过。
+- Git 工作树在检查结束时干净。Docker 与远程状态仍未被验证。

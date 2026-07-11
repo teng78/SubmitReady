@@ -13,6 +13,6 @@ actually occur.
 | 5 | Live contract integration | rule/report adapters and real wire mocks | cross-module API correctness | `53e32f6`; online demo + Edge/Playwright |
 | 6 | Handoff documentation | README and visual overview | commands match evidence | `ad3b541` |
 | 7 | Cold install repair | pnpm build allowlist | minimum lifecycle-script authority | `6087839`; second clean export passed |
-| 8 | Final evidence | logs, reflection draft, acceptance | no hidden incomplete claims | final documentation commit |
+| 8 | Final evidence | logs, reflection draft, acceptance | no hidden incomplete claims | `791def5` + final log commit |
 
 No remote PR or CI URL exists in this environment. Before submission, attach actual remote PR/CI links if created. This local table must not be presented as remote review history.
