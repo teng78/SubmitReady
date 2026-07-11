@@ -6,14 +6,13 @@ actually occur.
 
 | Logical PR | Goal | Principal scope | Review focus | Verification evidence |
 |---|---|---|---|---|
-| 1 | Requirements and architecture | SPEC, PLAN, traceability | B-project boundary, acceptance coverage | document cold read |
-| 2 | Backend foundation and rules | config, schemas, rule service | strict schema, immutable source | backend rule tests |
-| 3 | Secure import and checks | extractor, static checks, scanner | fail-closed paths and limits | extractor/check tests |
-| 4 | Controlled execution | runner and orchestration | no shell, timeout, env/output limits | runner tests |
-| 5 | Reports and API | SQLite, exports, endpoints | error envelope, cleanup, stable history | API integration tests |
-| 6 | Web interface | React routes and components | state handling, accessibility | Vitest and build |
-| 7 | Distribution and examples | Docker, Compose, scripts, fixtures | reproducibility and honest sandbox boundary | script/Compose checks |
-| 8 | Quality and documentation | CI and handoff docs | commands match evidence, no secrets | full local/CI gates |
+| 1 | Requirements and architecture | SPEC, PLAN, traceability | B-project boundary, acceptance coverage | `cd2cd11`, `368bc02`; independent-context cold read |
+| 2 | Backend foundation through API | config, rules, extractor, checks, runner, reports | fail-closed input and deterministic results | `c3e71f2`; 21 pytest, Ruff, mypy |
+| 3 | Web interface | React routes/components/API client | states and accessibility | `f81c225`; 6 Vitest, ESLint, tsc, build |
+| 4 | Distribution and examples | Docker, Compose, scripts, fixtures, CI | reproducibility and honest sandbox boundary | `5a2ceb4`; 8 ZIP, YAML/CRC/security checks |
+| 5 | Live contract integration | rule/report adapters and real wire mocks | cross-module API correctness | `53e32f6`; online demo + Edge/Playwright |
+| 6 | Handoff documentation | README and visual overview | commands match evidence | `ad3b541` |
+| 7 | Cold install repair | pnpm build allowlist | minimum lifecycle-script authority | `6087839`; second clean export passed |
+| 8 | Final evidence | logs, reflection draft, acceptance | no hidden incomplete claims | final documentation commit |
 
-Before submission, replace each generic verification cell with the real command result and attach the
-actual remote PR/CI URL if one exists. A local table must not be presented as a remote review history.
+No remote PR or CI URL exists in this environment. Before submission, attach actual remote PR/CI links if created. This local table must not be presented as remote review history.

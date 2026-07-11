@@ -11,45 +11,45 @@
 
 ## P1 后端基础（依赖：P0）
 
-- [ ] T10 建立 `backend/pyproject.toml`、配置、DB、模型和 FastAPI 骨架。红测：health/DB 临时实例；绿测：`pytest`。文件：`backend/app/{main,config,database,models}.py`。
-- [ ] T11 严格规则模型与 YAML 服务（依赖 T10 配置）。红测：三份合法规则、未知字段/危险命令/版本错误；绿测：schema/template/list/import。文件：`schemas/rules.py`, `services/rules.py`, `tests/test_rules.py`, `examples/rules/*`。验收：`pytest tests/test_rules.py -q`。三份规则资产归 T11，T50 只生成项目 ZIP。
-- [ ] T12 安全 ZIP 导入（依赖 T10 配置，不依赖 DB/API）。红测：Zip Slip、绝对/UNC/盘符/混合路径、链接/特殊项、重复冲突、加密/损坏包、数量/大小边界；绿测：独立目录与失败清理。文件：`services/extractor.py`, `tests/test_extractor.py`。验收：`pytest tests/test_extractor.py -q`。
+- [x] T10 建立 `backend/pyproject.toml`、配置、DB、模型和 FastAPI 骨架。验证纳入 21 个后端测试。
+- [x] T11 严格规则模型与 YAML 服务；三份规则均通过实际 Pydantic 校验。
+- [x] T12 安全 ZIP 导入；路径/大小/损坏/特殊项拒绝由后端测试覆盖。
 
 ## P2 检查与运行（依赖：T10–T12）
 
-- [ ] T20 静态检查。红测：必需/禁止/空/大小/临时/层级/语言；绿测：确定性排序和状态。文件：`checks/*`, `tests/test_checks.py`。
-- [ ] T21 敏感扫描和日志脱敏。红测：虚假 GitHub/OpenAI/云 Key、私钥、`.env`、密码与假阳性边界；绿测：证据不回显 secret。文件：`checks/secrets.py`, `core/redaction.py`。
-- [ ] T22 Runner 接口与受控 subprocess。红测：denylist、环境过滤、输出截断、失败、超时；绿测：无 shell、进程树终止、审计结果。文件：`runners/*`, `tests/test_runner.py`。
-- [ ] T23 编排和报告。红测：阶段顺序、汇总、SKIP、建议、稳定结果；绿测：CheckService。文件：`services/check_service.py`, `schemas/report.py`。
+- [x] T20 静态检查已实现并测试。
+- [x] T21 敏感扫描和日志脱敏已实现并测试。
+- [x] T22 Runner 接口、禁用默认值、超时/截断/环境白名单已实现并测试；完整子进程树隔离未证明。
+- [x] T23 编排和报告已实现；当前同步执行。
 
 ## P3 API、持久化和 AI 辅助（依赖：P2）
 
-- [ ] T30 历史仓储与导出。红测：重复提交、列表/详情/删除、JSON/MD 内容；绿测：SQLite repository/exporter。
-- [ ] T31 REST API。红测：上传→报告→导出→删除、非法 ZIP/规则/超限、统一错误；绿测：路由和异常处理。
-- [ ] T32 ExplanationProvider。红测：Mock 注入、无 Key、脱敏/截断、一次调用；绿测：模板解释 endpoint。
+- [x] T30 SQLite 历史与 JSON/Markdown 导出已完成。
+- [x] T31 REST API 已完成；真实在线 demo 通过。
+- [x] T32 Template/Mock ExplanationProvider 已完成，无 Key 路径通过。
 
 ## P4 前端（依赖：API schema 稳定）
 
-- [ ] T40 Vite/React/TypeScript 基础、API client、路由与 Notebook token。红测：导航、错误边界；绿测：响应式 shell。
-- [ ] T41 首页/新建/进行页。红测：规则选择、文件大小、加载、防重、错误；绿测：创建并轮询/导航。
-- [ ] T42 报告/历史/规则页。红测：报告统计、长日志折叠、导出、历史空/删除、规则导入错误；绿测：完整交互。
-- [ ] T43 可访问性与小屏 QA；验证：labels、focus、keyboard、CSS mobile、无无意义动画。
+- [x] T40 React/TypeScript/API client/路由与 Notebook UI 完成。
+- [x] T41 首页/新建/进行页完成。
+- [x] T42 报告/历史/规则页完成；前端 6 tests。
+- [x] T43 桌面与 390px Edge/Playwright QA 通过，控制台无错误。
 
 ## P5 分发、样例和质量（依赖：P3–P4）
 
-- [ ] T50 六类示例项目及 ZIP 生成脚本（规则资产在 T11）；验证：fixture 清单与 `python scripts/generate_examples.py` 幂等。
-- [ ] T51 跨平台测试/演示脚本、Makefile；验证：PowerShell 与 Python 入口均传播失败码。
-- [ ] T52 backend/frontend Dockerfile、nginx、Compose；验证：配置静态检查；有 Docker 环境时 build/up/health/down。
-- [ ] T53 GitHub Actions 和课程要求 `.gitlab-ci.yml` `unit-test` job；验证：YAML/命令与本地一致。
-- [ ] T54 全量门禁：Ruff format/check、mypy、pytest、ESLint、tsc、Vitest、Vite build、安全扫描。
+- [x] T50 七类项目、八个确定性 ZIP 已生成（含 Zip Slip）。
+- [x] T51 Python/PowerShell/Make 入口已提供；Python 统一入口真实通过。
+- [~] T52 Dockerfile/nginx/Compose 已提供并解析 YAML；本机无 Docker，build/up 未验证。
+- [x] T53 GitHub Actions 与 GitLab `unit-test` job 已提供。
+- [x] T54 全量本地门禁通过：21 pytest + 6 Vitest，所有 lint/type/build 通过。
 
 ## P6 文档与交付（依赖：全量验证）
 
-- [ ] T60 README、ARCHITECTURE、SECURITY、API、DEMO、TROUBLESHOOTING、CONTRIBUTING、LICENSE。
-- [ ] T61 SPEC_PROCESS、AGENT_LOG、PR_HISTORY；只能记录真实动作、结果和限制。
-- [ ] T62 冷启动模拟，修复后写 `COLD_START_REPORT.md`。
-- [ ] T63 `REFLECTION.md` 提供批判性草稿并醒目标注须由学生本人核验/改写（课程禁止 AI 代写）。
-- [ ] T64 最终逐项验收，记录命令、数量、失败和环境阻塞。
+- [x] T60 README 与辅助文档齐全。
+- [x] T61 SPEC_PROCESS、AGENT_LOG、PR_HISTORY 记录真实动作和限制。
+- [x] T62 第二次全新副本冷启动通过；第一次失败及修复已记录。
+- [x] T63 批判性反思草稿已提供，并醒目标注学生必须亲自改写。
+- [x] T64 最终验收见 `docs/ACCEPTANCE.md`；Docker/远程项明确未完成。
 
 ## 依赖与并行策略
 
