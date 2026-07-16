@@ -10,6 +10,19 @@
 2. 原始设想允许 OpenAI-compatible Provider；凭据要求审阅后，本提交缩为 Template + Mock，不收集任何 Key。这样核心能力离线可用，未来真实 Provider 必须先加入 keyring/secret 生命周期。
 3. 原始规则把命令写成字符串；命令注入分析后改为参数数组、可执行白名单、危险参数拒绝，并禁止网页任意命令。
 
+## 原始要求摘录与转化
+
+以下是本次会话中保留下来的用户原始指令摘录，不是事后虚构的 Agent 对话：
+
+1. “本项目选择：B：非 Harness 应用类项目。”
+   转化：SPEC 单列“为什么不是 Agent”，禁止自主循环、工具自主选择和模型改码。
+2. “任何 LLM 功能都只能是可选的、单次调用的辅助模块，不能成为核心功能运行的必要条件。”
+   转化：交付版只启用 Template/Mock Provider，核心检查完全离线运行。
+3. “若当前环境无法可靠实现 Docker 隔离……默认关闭不可信代码执行……不得声称降级模式已经具备完全沙箱能力。”
+   转化：默认 `ALLOW_UNTRUSTED_EXECUTION=false`，README、UI 和 SECURITY 均明确 subprocess 不是完整沙箱。
+
+三次转化分别改变了产品分类、AI 模块范围和执行安全默认值，属于对 SPEC 有实质影响的需求收敛。独立冷读发生在其后，用于检查这些决策能否被陌生实现者正确理解。
+
 ## 工具与流程偏差
 
 当前 Codex 会话可用技能中没有课程指定的 Superpowers `brainstorming`、`writing-plans`、`test-driven-development`、`requesting-code-review` 和 Open Design。不能如实声称调用这些技能。项目采用显式 SPEC/PLAN、测试先行任务定义、实际红绿结果、独立上下文审阅和双阶段复核作为等价工程证据。当前环境也无法保证“另一种智能体类型”；将使用不继承对话上下文的审阅任务暴露隐含假设，并明确这不等同于课程要求的不同产品/模型。

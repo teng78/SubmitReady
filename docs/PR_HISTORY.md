@@ -1,8 +1,8 @@
-# Logical PR history
+# Commit and logical review history
 
-No remote pull requests are claimed by this document. It is the required local substitute when remote
-repository/PR access is unavailable. Commit hashes and CI links must be added only after those actions
-actually occur.
+公开仓库为 <https://github.com/teng78/SubmitReady>，主分支 CI 记录见
+<https://github.com/teng78/SubmitReady/actions>。本项目开发期间没有创建远程 Pull Request；
+下表只记录基于小提交进行的逻辑审查阶段，不冒充远程 PR/MR。
 
 | Logical PR | Goal | Principal scope | Review focus | Verification evidence |
 |---|---|---|---|---|
@@ -13,6 +13,6 @@ actually occur.
 | 5 | Live contract integration | rule/report adapters and real wire mocks | cross-module API correctness | `53e32f6`; online demo + Edge/Playwright |
 | 6 | Handoff documentation | README and visual overview | commands match evidence | `ad3b541` |
 | 7 | Cold install repair | pnpm build allowlist | minimum lifecycle-script authority | `6087839`; second clean export passed |
-| 8 | Final evidence | logs, reflection draft, acceptance | no hidden incomplete claims | `791def5` + final log commit |
+| 8 | Final evidence and deployment | logs, reflection, acceptance, Render | no hidden incomplete claims | `791def5` through `fd9e5cf`; [successful CI](https://github.com/teng78/SubmitReady/actions/runs/29145673577) |
 
-No remote PR or CI URL exists in this environment. Before submission, attach actual remote PR/CI links if created. This local table must not be presented as remote review history.
+限制：远程仓库有完整线性 commit 历史和成功 CI，但没有真实 PR 审查记录；课程已确认无需 NJU Git，本表仍不把逻辑阶段描述成真实 PR。

@@ -39,7 +39,7 @@
 
 - [x] T50 七类项目、八个确定性 ZIP 已生成（含 Zip Slip）。
 - [x] T51 Python/PowerShell/Make 入口已提供；Python 统一入口真实通过。
-- [~] T52 Dockerfile/nginx/Compose 已提供并解析 YAML；本机无 Docker，build/up 未验证。
+- [x] T52 Dockerfile/nginx/Compose 已提供；GitHub Actions 已完成 Compose 双镜像和根目录单镜像构建，Render 已完成根目录 Dockerfile 部署。本机无 Docker，因此本机 Compose `up/down` 未执行。
 - [x] T53 GitHub Actions 与 GitLab `unit-test` job 已提供。
 - [x] T54 全量本地门禁通过：21 pytest + 6 Vitest，所有 lint/type/build 通过。
 
@@ -49,7 +49,20 @@
 - [x] T61 SPEC_PROCESS、AGENT_LOG、PR_HISTORY 记录真实动作和限制。
 - [x] T62 第二次全新副本冷启动通过；第一次失败及修复已记录。
 - [x] T63 学生已审阅、修改并确认 2351 字最终反思稿。
-- [x] T64 最终验收见 `docs/ACCEPTANCE.md`；Docker/远程项明确未完成。
+- [x] T64 最终验收见 `docs/ACCEPTANCE.md`；GitHub Actions、Docker 构建和 Render WebUI 均已有远程证据。
+- [x] T65 最终交付复核：独立解压交付 ZIP，逐项核对课程要求，复跑 21 个后端测试、6 个前端测试、lint、类型检查、生产构建、离线演示与凭据扫描。
+- [x] T66 交付整改：根目录必交文档改为完整正文，补充分发命令、依赖许可证、提交映射、反思必答项和公开镜像工作流。
+
+## 任务与提交映射
+
+| 阶段 | 主要任务 | 提交 |
+|---|---|---|
+| P0 | T00–T03 需求、SPEC、PLAN、冷读修订 | `cd2cd11`, `368bc02` |
+| P1–P3 | T10–T32 后端、检查引擎、API、报告 | `c3e71f2` |
+| P4 | T40–T43 前端与交互 | `f81c225`, `53e32f6` |
+| P5 | T50–T54 示例、CI、Docker、质量门禁 | `5a2ceb4`, `6087839` |
+| P6 | T60–T64 文档、冷启动、验收与部署 | `ad3b541`, `791def5`, `0b7fd61`, `3ebffdf`, `bc14593`, `fd9e5cf` |
+| 最终整改 | T65–T66 独立交付审计与材料完善 | 本次最终提交 |
 
 ## 依赖与并行策略
 
@@ -61,5 +74,5 @@
 - ZIP：先验证中央目录元数据，再逐块写出并复核实际字节。
 - 平台：Windows 进程终止与 POSIX 分支分别测试可达逻辑。
 - 前端工具：优先使用 Codex 随附 Node/pnpm；锁定 lockfile。
-- Docker 缺失：不能伪造构建通过；提供 CI build 并在冷启动报告标阻塞。
+- Docker 缺失：不声称本机运行；以 GitHub Actions 实际构建和 Render 部署作为远程证据。
 - 课程过程工具缺失：保留清晰的等价证据和偏差说明。

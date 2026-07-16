@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   backend:
@@ -85,3 +86,19 @@ jobs:
         run: docker compose build
       - name: Build single-image distribution
         run: docker build -t submitready:ci .
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish versioned and latest images
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/teng78/submitready:latest
+            ghcr.io/teng78/submitready:${{ github.sha }}

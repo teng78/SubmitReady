@@ -58,7 +58,31 @@ docker compose up --build
 docker compose down --remove-orphans
 ```
 
-Compose 将后端设为非 root、只读根文件系统、禁用额外 capabilities，并限制 CPU、内存和进程数。当前开发机没有 Docker CLI，因此上述镜像构建/启动未在本机执行；CI 已配置 `docker compose config`、双镜像和单镜像构建门禁。请在提交前于有 Docker 的机器或 CI 上确认最后一次结果为通过。
+Compose 将后端设为非 root、只读根文件系统、禁用额外 capabilities，并限制 CPU、内存和进程数。当前开发机没有 Docker CLI，因此 Compose `up/down` 未在本机执行；GitHub Actions 已实际执行 Compose 双镜像构建和根目录单镜像构建，Render 也使用同一根目录 Dockerfile 完成了线上部署。
+
+## 单镜像分发
+
+直接从源码构建并运行：
+
+```bash
+docker build -t submitready:local .
+docker run --rm --name submitready -p 8080:8080 \
+  -e SUBMITREADY_ALLOW_UNTRUSTED_EXECUTION=false \
+  -v submitready-data:/data \
+  submitready:local
+```
+
+也可以获取 GitHub Container Registry 镜像：
+
+```bash
+docker pull ghcr.io/teng78/submitready:latest
+docker run --rm --name submitready -p 8080:8080 \
+  -e SUBMITREADY_ALLOW_UNTRUSTED_EXECUTION=false \
+  -v submitready-data:/data \
+  ghcr.io/teng78/submitready:latest
+```
+
+打开 <http://localhost:8080>。停止前台容器使用 `Ctrl+C`；若使用后台模式，则运行 `docker stop submitready`。镜像使用非 root 用户，但单镜像运行命令本身不等同于任务级无网络沙箱；不要在公网实例开启不可信代码执行。
 
 ## 本地开发
 
@@ -132,6 +156,10 @@ python scripts/demo.py
 
 因此 `.env.example` 只包含非秘密运行配置。项目不会要求用户把 Key 发到聊天、前端、数据库或日志。未来若增加真实 Provider，必须先实现 OS keyring/容器 secret 的录入、状态、更新和清除流程；仅把 Key 放入普通配置文件不满足本项目安全模型。
 
+## 第三方依赖与许可证
+
+项目自身采用 MIT License。主要直接依赖包括 FastAPI、Pydantic、SQLAlchemy、Uvicorn、PyYAML、React、React Router、Vite、TypeScript、Vitest、pytest、Ruff 和 mypy；这些依赖分别采用 MIT、BSD 或 Apache-2.0 等开源许可证。完整的直接依赖、用途和许可证核对入口见 [第三方依赖说明](docs/DEPENDENCIES.md)。最终分发者仍应以锁文件和各依赖发布页中的许可证文件为准。
+
 ## 安全边界
 
 - 上传、归档内容和规则一律视为不可信；验证失败默认拒绝。
@@ -180,6 +208,7 @@ docs/           规格、计划、过程、安全、演示与验证证据
 - [冷启动报告](docs/COLD_START_REPORT.md)
 - [开发日志](docs/AGENT_LOG.md)
 - [本地 PR 替代记录](docs/PR_HISTORY.md)
+- [第三方依赖与许可证](docs/DEPENDENCIES.md)
 - [学生最终反思报告](docs/REFLECTION.md)
 - [贡献指南](CONTRIBUTING.md)
 
@@ -187,9 +216,9 @@ docs/           规格、计划、过程、安全、演示与验证证据
 
 - 检查请求同步执行，未实现后台队列和真实逐阶段进度流。
 - subprocess 不是完整沙箱；应用内 DockerRunner 未实现。
-- 本机缺 Docker；Docker 构建已由 GitHub Actions 和 Render 部署验证，但 Compose `up/down` 未在本机执行。
+- 本机缺 Docker；根目录单镜像和 Compose 双镜像已由 GitHub Actions 构建，Render 已完成根目录 Dockerfile 部署，但 Compose `up/down` 未在本机执行。
 - 公网演示已部署到 Render；免费实例闲置后会休眠，SQLite 历史在重启或重新部署后可能丢失。
-- 尚未发布公共 registry 镜像。
+- GHCR 镜像由主分支 CI 发布；若首次访问返回权限错误，应在 GitHub Packages 页面确认包可见性为 Public。
 - SQLite 适合单实例，不支持多副本共享状态。
 - 当前过程环境未提供课程指定 Superpowers/Open Design 技能，也未完成“不同产品智能体”冷读；偏差已如实记录。
 - `REFLECTION` 已由学生本人审阅和修改；公开版本包含课程身份信息。

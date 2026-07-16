@@ -60,3 +60,14 @@
 - 公网首页和 `/api/health` 外部验证为 HTTP 200，执行不可信代码保持关闭。
 - 学生滕云龙完成并确认 2351 字最终反思，替换仓库中的 AI 协助草稿。
 - 课程身份信息按学生明确要求纳入公开反思报告；最终源码归档与提交清单重新生成。
+
+## 2026-07-16 · 最终交付独立审计与整改
+
+- 目标：按《通用要求》和《B 应用类项目》重新审计学生最终 ZIP，并修复所有能够真实补齐的交付问题。
+- 输入：`SubmitReady-AI4SE-Final-Submission-251240074 (1).zip`、两份课程要求和当前 GitHub 仓库。
+- 只读核验：安全解压 ZIP；验证 Git Bundle；将快照中的 114 个路径与 `fd9e5cf` Git tree 逐一比较，结果 0 mismatch、0 extra。
+- 独立质量门禁：Ruff format/check、mypy 22 source files、pytest 21 passed、ESLint、TypeScript、Vitest 6 passed、Vite 51 modules build、离线 demo、8 个 ZIP 夹具和凭据扫描全部通过。
+- 远程证据：GitHub Actions run `29145673577` 为 success；Render 首页与 `/api/health` 返回 HTTP 200，且 `execution_enabled=false`。
+- 发现：根目录 SPEC/PLAN/SPEC_PROCESS/AGENT_LOG 只有跳转页；PLAN Docker 状态过期；README 缺单镜像 build/run 与依赖许可证；SPEC_PROCESS 缺原始要求摘录；REFLECTION 未明确回答 Prompt、任务粒度、Subagent 与 AI 润色披露；PR_HISTORY 远程状态过期。
+- 修复：补齐上述文档；增加 GHCR 主分支镜像发布步骤；将根目录四份必交文档同步为完整正文；重新生成 Git Bundle 和最终 ZIP。
+- 人工责任：学生已确认无需 NJU Git。Superpowers、异类 Subagent、worktree 和真实 PR 历史无法事后补造，继续作为诚实限制保留。
