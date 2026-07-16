@@ -218,7 +218,7 @@ docs/           规格、计划、过程、安全、演示与验证证据
 - subprocess 不是完整沙箱；应用内 DockerRunner 未实现。
 - 本机缺 Docker；根目录单镜像和 Compose 双镜像已由 GitHub Actions 构建，Render 已完成根目录 Dockerfile 部署，但 Compose `up/down` 未在本机执行。
 - 公网演示已部署到 Render；免费实例闲置后会休眠，SQLite 历史在重启或重新部署后可能丢失。
-- GHCR 镜像由主分支 CI 发布；若首次访问返回权限错误，应在 GitHub Packages 页面确认包可见性为 Public。
+- GHCR 公共镜像由主分支 CI 发布；匿名 Registry API 已验证 `latest` 清单可读取。
 - SQLite 适合单实例，不支持多副本共享状态。
 - 当前过程环境未提供课程指定 Superpowers/Open Design 技能，也未完成“不同产品智能体”冷读；偏差已如实记录。
 - `REFLECTION` 已由学生本人审阅和修改；公开版本包含课程身份信息。

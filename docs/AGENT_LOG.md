@@ -71,3 +71,4 @@
 - 发现：根目录 SPEC/PLAN/SPEC_PROCESS/AGENT_LOG 只有跳转页；PLAN Docker 状态过期；README 缺单镜像 build/run 与依赖许可证；SPEC_PROCESS 缺原始要求摘录；REFLECTION 未明确回答 Prompt、任务粒度、Subagent 与 AI 润色披露；PR_HISTORY 远程状态过期。
 - 修复：补齐上述文档；增加 GHCR 主分支镜像发布步骤；将根目录四份必交文档同步为完整正文；重新生成 Git Bundle 和最终 ZIP。
 - 人工责任：学生已确认无需 NJU Git。Superpowers、异类 Subagent、worktree 和真实 PR 历史无法事后补造，继续作为诚实限制保留。
+- 远程复验：提交 `daa7634` 推送到 GitHub；Actions run `29511121772` 的 backend、frontend、security、docker 四个 job 全部成功。Docker job 实际构建 Compose 双镜像和单镜像，并发布 `ghcr.io/teng78/submitready:latest` 与提交哈希标签；匿名 Registry API 获取 `latest` manifest 返回 HTTP 200。

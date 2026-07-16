@@ -2,6 +2,9 @@
 
 > 2026-07-16 更新：学生已确认课程无需 NJU Git；远程仓库采用公开 GitHub。
 
+最终远程质量门禁：<https://github.com/teng78/SubmitReady/actions/runs/29511121772>（success）。
+公共镜像：`ghcr.io/teng78/submitready:latest`（匿名 manifest 请求 HTTP 200）。
+
 | 验收项 | 结果 | 证据/限制 |
 |---|---|---|
 | 30 秒说明、真实用户价值 | 通过 | README/SPEC |

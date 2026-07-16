@@ -14,5 +14,6 @@
 | 6 | Handoff documentation | README and visual overview | commands match evidence | `ad3b541` |
 | 7 | Cold install repair | pnpm build allowlist | minimum lifecycle-script authority | `6087839`; second clean export passed |
 | 8 | Final evidence and deployment | logs, reflection, acceptance, Render | no hidden incomplete claims | `791def5` through `fd9e5cf`; [successful CI](https://github.com/teng78/SubmitReady/actions/runs/29145673577) |
+| 9 | Final delivery remediation | root deliverables, reflection disclosure, licenses, GHCR | strict course-package completeness | `daa7634`; [successful CI and image publish](https://github.com/teng78/SubmitReady/actions/runs/29511121772) |
 
 限制：远程仓库有完整线性 commit 历史和成功 CI，但没有真实 PR 审查记录；课程已确认无需 NJU Git，本表仍不把逻辑阶段描述成真实 PR。
